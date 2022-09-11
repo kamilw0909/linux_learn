@@ -22,10 +22,10 @@
 - rozpakowywania --> `unzip plik.zip`
 - nie można z niego korzystać do kopiowania plików przez np ssh w przeciwieństwie do tar
 - opcje:
-	-r pakuje rekursywnie podkatalogi
-	-l wypisuje liste plikow w archiwum lub jeden plik
-	-v więcej info
-	-@ korzystanie z wejścia/wyjści
+  - -r pakuje rekursywnie podkatalogi
+  - -l wypisuje liste plikow w archiwum lub jeden plik
+  - -v więcej info
+  - -@ korzystanie z wejścia/wyjści
 
 # ARCHIWIZACJA
 
@@ -34,16 +34,16 @@
 - wyjście **.tar** lub **.tgz** --> archiwum z użyciem gzip
 - `tar tryb[opcje] ścieżka`
 - tryby:
-	f - można podać nazwę archiwum / wypisuje nazwy plików w archiwum --> używa plików/u
-	v - bardziej szczegółowe info o archiwum
-	c - tworzy archiwum na podstawie listy plików
-	x - rozpakowuje
-	r - dodaje pliki do archiwum na końcu
-	t - listuje zawartość arciwum
-	u - update archiwum jak są nowe pliki niż zawartość archiwum
-	A - połączenie archiwów w jedno
-	z - kompresja gzip
-	j - kompresja bzip2
+  - f - można podać nazwę archiwum / wypisuje nazwy plików w archiwum --> używa plików/u
+  - v - bardziej szczegółowe info o archiwum
+  - c - tworzy archiwum na podstawie listy plików
+  - x - rozpakowuje
+  - r - dodaje pliki do archiwum na końcu
+  - t - listuje zawartość arciwum
+  - u - update archiwum jak są nowe pliki niż zawartość archiwum
+  - A - połączenie archiwów w jedno
+  - z - kompresja gzip
+  - j - kompresja bzip2
 - używając myślnika zamiast nazwy pliku tar korzysta ze standordowego wyjścia/wejścia
 - pliki rozpakowane będą należąć do usera który rozpakowuje archiwum a nie twórcy
 
