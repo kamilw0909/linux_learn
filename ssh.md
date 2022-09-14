@@ -3,7 +3,7 @@
 ## opcje `ssh`
 - -v więcej info podczas połączenia
 
-##folder /home/user/.ssh
+## folder /home/user/.ssh
 - zawiera znane hosty z którymi się łączyłem
 - zawiera publiczne klucze do sparowania ze zdalnym serwerem
 
