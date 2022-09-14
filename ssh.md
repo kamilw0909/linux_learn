@@ -1,11 +1,17 @@
+# instalacja
+`sudo pacman -S openssh` --> instaluje client i server
+
 # klient
 
 ## opcje `ssh`
 - -v więcej info podczas połączenia
+- -p port
+- -i plik do wczytania
 
 ## folder /home/user/.ssh
 - zawiera znane hosty z którymi się łączyłem
 - zawiera publiczne klucze do sparowania ze zdalnym serwerem
+- kofiguracja globalna jest w ***/etc/ssh/ssh-config***
 
 ## konfiguracja klienta ~/.ssh/config
 - wpisz w pliku:
@@ -37,3 +43,18 @@
 1. opcja hard kopiuje klucz *.pub z klienta, loguje się na serwer i wklejam do folderu .ssh w pliku ***authorized_keys***
 2. opcja easy `ssh-copy-id -i sciezka_do_pliku login@host`
 
+# Serwer
+- konfiguracja jest w ***/etc/ssh/sshd_config***
+  - w folderze są też fingerprinty i jak zostaną usunięte nie da się połączyć z serwerem
+- najważniejsze opcje:
+  - Port 22
+  - PermitRootLogin yes --> można logować się na root na serwerze
+  - PasswordAuthentication yes --> należy wyłączyć jak jest ustawiony ssh key
+  - 
+- po zmianie konfiguracji trzeba zrestartować deamona:
+  - `systemctl restart sshd`
+  - `systemctl status sshd` --> trzeba sprawdzić czy nie ma błędów bo nie da się połączyć ponownie z serwerem
+
+# problemy
+- sprawdz uprawnienia plików .ssh
+- sprawdzenie loga --> `journalctl -fu ssh` lub sshd/ bez -f to pokazuje całego loga z -f śledzi loga
