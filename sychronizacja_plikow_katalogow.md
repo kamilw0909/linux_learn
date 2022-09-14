@@ -8,3 +8,4 @@
 - opcje:
   - -a rekursja i zachowanie atrybutów plików
   - -v więcej info
+  - --delete usuwa z miejsca docelowego pliki, które tam są ale już ich nie ma w źródle
