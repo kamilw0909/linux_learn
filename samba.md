@@ -5,15 +5,15 @@
 3. edytowanie konfiguracji samby:
   - conf --> /etc/samba/smb.conf
   - zrób kopie conf
-  - ```[dane]
-       path = /sciezka_udostepnionego_katalogu
-       browseable = yes
-       read only = no
-     [public]
-       path = /sciezka_udostepnionego_katalogu
-       browseable = yes
-       read only = no
-       guest ok = yes```
+  - ``` [dane]
+          path = /sciezka_udostepnionego_katalogu
+          browseable = yes
+          read only = no
+        [public]
+          path = /sciezka_udostepnionego_katalogu
+          browseable = yes
+          read only = no
+          guest ok = yes```
 4. restart service
   - `systemctl restart smbd`
 5. zmiana uprawnień udostępnionych katalogów na 777
