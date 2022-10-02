@@ -21,5 +21,5 @@
 5. zmiana uprawnień udostępnionych katalogów na 777
   - `chown 777 /katalog`
 6. połączenie u klienta:
-  - Windows --> WIN + R --> \\adres_ip
+  - Windows --> WIN + R --> \\\adres_ip
   - LINUX --> w eksploratorze plików --> połącz z serwerem
