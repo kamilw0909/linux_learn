@@ -29,16 +29,14 @@ b. virtual host
   - `a2ensite` / `a2dissite` --> włączenie/ wyłączenie vhosta
   - `ls /etc/apache2/sites-available` --> lista vhostów
   - `vi /etc/apache2/sites-available/example.net.conf`
-    '''
-        <VirtualHost *:80> 
+    '''<VirtualHost *:80> 
             ServerAdmin webmaster@example.net
             ServerName example.net
             ServerAlias www.example.net
             DocumentRoot /srv/www/example.net/public_html/
             ErrorLog /srv/www/example.net/logs/error.log
             CustomLog /srv/www/example.net/logs/access.log combined
-        </VirtualHost>
-    '''
+        </VirtualHost>'''
   - vhost pod skrypt perla
     '''
         <VirtualHost *:80> 
