@@ -39,11 +39,12 @@
   - c - tworzy archiwum na podstawie listy plików
   - x - rozpakowuje
   - r - dodaje pliki do archiwum na końcu
-  - t - listuje zawartość arciwum
+  - t - listuje zawartość archiwum
   - u - update archiwum jak są nowe pliki niż zawartość archiwum
   - A - połączenie archiwów w jedno
   - z - kompresja gzip
   - j - kompresja bzip2
+  - J - kompresja xz
 - używając myślnika zamiast nazwy pliku tar korzysta ze standordowego wyjścia/wejścia
 - pliki rozpakowane będą należąć do usera który rozpakowuje archiwum a nie twórcy
 
