@@ -30,29 +30,29 @@ b. virtual host
   - `a2ensite` / `a2dissite` --> włączenie/ wyłączenie vhosta
   - `ls /etc/apache2/sites-available` --> lista vhostów
   - `vi /etc/apache2/sites-available/example.net.conf`
-'''
-<VirtualHost *:80> 
-    ServerAdmin webmaster@example.net
-    ServerName example.net
-    ServerAlias www.example.net
-    DocumentRoot /srv/www/example.net/public_html/
-    ErrorLog /srv/www/example.net/logs/error.log
-    CustomLog /srv/www/example.net/logs/access.log combined
-</VirtualHost>
-'''
+    '''
+        <VirtualHost *:80> 
+            ServerAdmin webmaster@example.net
+            ServerName example.net
+            ServerAlias www.example.net
+            DocumentRoot /srv/www/example.net/public_html/
+            ErrorLog /srv/www/example.net/logs/error.log
+            CustomLog /srv/www/example.net/logs/access.log combined
+        </VirtualHost>
+    '''
   - vhost pod skrypt perla
-'''
-<VirtualHost *:80> 
-    ServerAdmin webmaster@example.org
-    ServerName example.org
-    ServerAlias www.example.net
-    DocumentRoot /srv/www/example.org/public_html/
-    ErrorLog /srv/www/example.org/logs/error.log
-    CustomLog /srv/www/example.org/logs/access.log combined
-    OptionsExecCGI
-    AddHandler cgi-script .pl
-</VirtualHost>
-'''
+    '''
+        <VirtualHost *:80> 
+            ServerAdmin webmaster@example.org
+            ServerName example.org
+            ServerAlias www.example.net
+            DocumentRoot /srv/www/example.org/public_html/
+            ErrorLog /srv/www/example.org/logs/error.log
+            CustomLog /srv/www/example.org/logs/access.log combined
+            OptionsExecCGI
+            AddHandler cgi-script .pl
+        </VirtualHost>
+    '''
   - `a2ensite example.net` --> i drugiego też żeby działał (pod perla)
   - `systemctl reload apache2` --> po zmianie vhost
 
