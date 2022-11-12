@@ -29,16 +29,18 @@ b. virtual host
   - `a2ensite` / `a2dissite` --> włączenie/ wyłączenie vhosta
   - `ls /etc/apache2/sites-available` --> lista vhostów
   - `vi /etc/apache2/sites-available/example.net.conf`
-    '''<VirtualHost *:80> 
+    ```
+        <VirtualHost *:80> 
             ServerAdmin webmaster@example.net
             ServerName example.net
             ServerAlias www.example.net
             DocumentRoot /srv/www/example.net/public_html/
             ErrorLog /srv/www/example.net/logs/error.log
             CustomLog /srv/www/example.net/logs/access.log combined
-        </VirtualHost>'''
+        </VirtualHost>
+    ```
   - vhost pod skrypt perla
-    '''
+    ```
         <VirtualHost *:80> 
             ServerAdmin webmaster@example.org
             ServerName example.org
@@ -49,7 +51,55 @@ b. virtual host
             OptionsExecCGI
             AddHandler cgi-script .pl
         </VirtualHost>
-    '''
+    ```
   - `a2ensite example.net` --> i drugiego też żeby działał (pod perla)
   - `systemctl reload apache2` --> po zmianie vhost
 
+### <Directory path>
+- pozwala skonfigurować dostęp do konkretnego foleru apacheowi
+- opcje:
+    - Options FollowSymLinks --> pozwala stronie www używać symlinków do plików z path
+    - AllowOverride none --> nie pozwala .htaccess nadpisywać ustawień
+    - Order allow, deny --> ustawie jakie hosty, ip adresy mogą mieć dostęp do strony
+    Indexes --> jako plik ma być wczytany jako index.html
+
+
+# Konfiguracja ubuntu - apache - django
+1. projekt django z venv ma być w `/var/www/html`
+2. virtual host w `/etc/apache2/sites-available`:
+```
+<VirtualHost *:80>
+    ServerAdmin admin@ipse.app
+    ServerName ipse.app
+    ServerAlias www.ipse.app
+    DocumentRoot /var/www/html/django_ipse
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+ 
+    Alias /static /var/www/html/django_ipse/static
+    <Directory /var/www/html/django_ipse/static>
+        Require all granted
+    </Directory>
+ 
+    Alias /static /var/www/html/media
+    <Directory /var/www/html/django_ipse/media>
+        Require all granted
+    </Directory>
+    <Directory /var/www/html/django_ipse/conf>
+        <Files wsgi.py>
+            Require all granted
+        </Files>
+    </Directory>
+
+    WSGIDaemonProcess django_ipse python-path=/var/www/html/django_ipse python-home    =/var/www/html/django_ipse/env
+    WSGIProcessGroup django_ipse
+    WSGIScriptAlias / /var/www/html/django_ipse/config/wsgi.py
+</VirtualHost>
+```
+1. `sudo a2ensite nazwa_vhosta`
+2. `sudo a2dissite 000-default` --> wyłączenie deafaulta z localhostu
+3. `sudo vi /etc/hosts`
+    - `127.0.0.1   ipse.app` --> aby możnabyło korzystać z adresu www zamiast ip
+4. django projekt --> config/settings.py
+    - `ALLOWED_HOSTS = ['ipse.app']
+5. `sudo systemctl reload apache2`
