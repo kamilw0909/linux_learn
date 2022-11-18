@@ -9,7 +9,9 @@
   - żeby zmiany zatweirdzić
 
 # 2. Apache
-- `apt install apache2 apache2-doc apache2-utils`
+- konfiguracja jest w /etc/apache2/apache2.conf
+- pliki stron www są w /var/www/
+- `apt install apache2 apache2-bin apache2-data  apache2-doc apache2-utils`
 - `systemctl status apache2`
   - spr czy jest aktywny deamon
   - `systemctl enable apache2` --> startuje po restarcie linux
@@ -65,7 +67,7 @@ b. virtual host
 
 
 # Konfiguracja ubuntu - apache - django
-1. projekt django z venv ma być w `/var/www/html`
+1. projekt django z venv ma być w `/var/www/html` lub `var/www/`
 2. virtual host w `/etc/apache2/sites-available`:
 ```
 <VirtualHost *:80>
@@ -103,3 +105,7 @@ b. virtual host
 4. django projekt --> config/settings.py
     - `ALLOWED_HOSTS = ['ipse.app']
 5. `sudo systemctl reload apache2`
+
+
+## Uprawnienia/wlasność do plików z których korzysta apache
+- `chown -R www-data:www-data /sciezka/do/plikow/`
