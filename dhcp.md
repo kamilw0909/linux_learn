@@ -10,7 +10,8 @@
 4. konfiguracja dhcp:
   - w pliku /etc/dhcp/dhcp.conf
   - zrób kopię pliku
-  - ```
+  - 
+```
     authoritative; # nasz serwew jest jedyny w sieci
     subnet 10.0.0.0 netmask 255.255.255.0 { # adres ***sieci*** przypisany do naszego interfejsu
     range 10.10.0.101 10.0.0.200;
@@ -21,7 +22,7 @@
     default-lease-time 259200;
     max-lease-time 338400;
     }
-    ```
+```
 5. restart isc
   - systemctl ...
 
