@@ -58,7 +58,6 @@
 10. apache Virtual Host
   - `sudo a2dissite 000-deafult.conf`
   - `sudo vim /etc/apache2/sites-available/nextcloud.mojadomena.cloud.conf`
-    -
 ```
 <VirtualHost *:80>
     DocumentRoot "/var/www/nextcloud.mojadomena.cloud"
