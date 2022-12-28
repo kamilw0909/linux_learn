@@ -57,7 +57,7 @@
 
 10. apache Virtual Host
   - `sudo a2dissite 000-deafult.conf`
-  - `sudo vim /etc/apache2/sites-available/nextcloud.mojadomena.cloud.conf`
+  - `sudo vim /etc/apache2/sites-available/nextcloud.mojadomena.cloud.conf`:
 ```
 <VirtualHost *:80>
     DocumentRoot "/var/www/nextcloud.mojadomena.cloud"
@@ -75,10 +75,56 @@
 
 </VirtualHost>
 ```
+  - `sudo a2ensite nextcloud.mojadomena.cloud.conf`
+ 
+11. PHP
+  - `sudo vim /etc/php/8.1/apache2/php.ini`
+```
+memory_limit = 512M
+upload_max_filesize = 200M
+max_execution_time = 360
+post_max_size = 200M
+date.timezone = Europe/Warsaw
+opcache.enable=1
+opcache.interned_strings_buffer=8
+opcache.max_accelerated_files=10000
+opcache.memory_consumption=128
+opcache.save_comments=1
+opcache.revalidate_freq=2
+```
 
+  - **`sudo systemctl restart apache2`**
 
+12. Nextcloud na serwerze działa - wystarczy wejść na adres ip serwera
+  - tworzenie konta admina
+  - db --> tak jak stworzyłem
 
+13. Naprawianie bugów
+  - secure connection/ ssl:
+    - `sudo apt install snapd`
+    - `sudo snap install core; sudo snap refresh core`
+    - `sudo snap install --classic certbot`
+    - `sudo ln -s /snap/bin/certbot /usr/bin/certbot`
+        - `sudo certbot --apache` --> ssl certyfikat
+  - http header:
+    - `sudo vim /etc/apache2/sites-available/nexcloud.mojadomena.cloud-le-ssl.conf` --> dodaj pod ServerName
+```
+<IfModule mod_headers.c>
+    Header always set Strict-Transport-Security "max-age=15552000; includeSubDomains"
+</IfModule>
+```
+  - phone region:
+    - `sudo vim /var/www/nextcloud.mojadomena.cloud/config/config.php`:
+        - dodać pod 'installed' => true,
+            - `'default_phone_region' => 'PL',`
+    - `sudo chmod 660 /var/www/nextcloud.mojadomena.cloud/config/config.php`
+  - no memory cache --> w tym samym pliku co powyżej dodać linijkę:
+    - `'memcache.local' => '\\OC\\Memcache\\APCu',`
+  - imagick:
+    - `sudo apt install libmagickcore-6.q16-6-extra`
+    - `sudo systemctl restart apache2`
 
-
-
-
+  - cron:
+    - `sudo apt install cron`
+    - `sudo crontab -u www-data -e`:
+        - `*/5 * * * * /usr/bin/php8.1 -f /var/www/nextcloud.mojadomena.cloud/cron.php` --> zapisz
