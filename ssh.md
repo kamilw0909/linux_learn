@@ -42,6 +42,24 @@
 ### Dodawanie klucza na serwer
 1. opcja hard kopiuje klucz *.pub z klienta, loguje się na serwer i wklejam do folderu .ssh w pliku ***authorized_keys***
 2. opcja easy `ssh-copy-id -i sciezka_do_pliku login@host`
+  - w Windows być może trzeba zrobić folder `C:\Users\user-name\.ssh`
+  - dobra opcja (tylko trzeba byc w folderze ~/.ssh:
+```
+sftp user@192.168.0.100
+mkdir .ssh
+cd .ssh
+put id_rsa.pub
+bye
+```
+  - dodatkowo trzeba zmienić config sshd i wykomentować w C:\ProgramData\ssh\sshd_config i restart openssh w services.msc:
+```
+AuthorizedKeysFile  .ssh/authorized_keys 
+PasswordAuthentication no
+PubkeyAuthentication yes
+#Match Group administrators
+#       AuthorizedKeysFile __PROGRAMDATA__/ssh/administrators_authorized_keys
+```
+
 
 # Serwer
 - konfiguracja jest w ***/etc/ssh/sshd_config***
