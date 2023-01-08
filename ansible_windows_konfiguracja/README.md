@@ -1,3 +1,5 @@
+#Ansible Windows 7/10
+
 1. Instalacja:
     - `sudo apt update`
     - `sudo apt install ansible`
@@ -6,19 +8,18 @@
 3. Tworzenie **repo git**
     - init, remote, commit, push
 6. Testowanie połączenie z serwerami:
-    - `ansible all --key-file ~/.ssh/ansible -i inventory -m ping`
+    - `ansible all -i inventory -m win_ping`
 7. Tworzenie ansible configa
     - `vim ansible.cfg`
 ```
 [defaults]
 inventory = inventory
-private_key_file = ~/.ssh/ansible
 ```
 
 8. Polecenia
-    a. lista hostów w inventory --> `ansible all --list-hosts`
-    b. info o hostach --> `ansible -m gather_facts`
-    c. info o jednym hoscie --> `ansible -m gather_facts --limit 192.168.1.123
+    - lista hostów w inventory --> `ansible all --list-hosts`
+    - info o hostach --> `ansible -m gather_facts`
+    - info o jednym hoscie --> `ansible -m gather_facts --limit 192.168.1.123
 
 # konfiguracja windows:
 
