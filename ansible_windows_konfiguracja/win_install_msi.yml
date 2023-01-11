@@ -1,0 +1,16 @@
+---
+
+- name: install 7-Zip package
+  hosts: windows
+
+  tasks:
+    - name: Download 7zip msi
+      win_get_url:
+        url: https://www.7-zip.org/a/7z2201-x64.msi
+        dest: C:\temp\7z.msi
+
+    - name: install 7zip msi
+      win_package:
+        path: C:\temp\7z.msi
+        state: present
+

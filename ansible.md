@@ -16,41 +16,5 @@ user@192.0.2.51
 4. Konfiguracja SSH, żeby ansible mogło komunikować się z hostami
 - dodaj public_key to pliku authorized_keys w każdym hoście
 
-
-a. WINDOWS --> trzeba mieć POWER SHELL
-```
-Get-Service -Name *ssh*
-Start-Service sshd
-
-Set-Service -Name sshd -StartupType 'Automatic'
-
-Start-Service ‘ssh-agent’
-
-Set-Service -Name ‘ssh-agent’ -StartupType 'Automatic'
-
-New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
-
-
-- restart sshd i agenta: `services.msc` --> restart opensshagent, openssh server
-
-- nie działa ssh-agent -->
-```
-Get-Service ssh-agent
-Get-Service ssh-agent | Select StartType
-Get-Service -Name ssh-agent | Set-Service -StartupType Manual
-```
-
-- nie działa ssh-agent -->
-```
-Get-Service ssh-agent
-Get-Service ssh-agent | Select StartType
-Get-Service -Name ssh-agent | Set-Service -StartupType Manual
-```
-
-b. upgrade PowerShell do ver >= 3.0
-```
-
-```
-
-
-
+5. wykonywanie polecenia na serwerze:
+- `ansible all -m apt -a update_cache=true --become ask-become-pass`
