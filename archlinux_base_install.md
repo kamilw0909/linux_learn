@@ -1,4 +1,4 @@
-## sda* ==> sda partition number
+# sda* ==> sda partition number
 
 
 # mkswap /dev/sda*
