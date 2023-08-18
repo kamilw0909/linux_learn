@@ -96,12 +96,119 @@
   ```
   - sprawdź czy działa --> `sudo vnagios`
   - restart --> `sudo systemctl restart nagios`
-3. contacts
-4. host template
-5. service template
+3. contacts (conf w templates.cfg)
+  - powiadomienia hosta rodzaje opcji:
+    - d = down
+    - u = unreachable
+    - r = recovery
+    - f = flapping (trzepoczący - pojawia sie i znika)
+    - s = scheduled host down time
+  - powiadomienia servic, rodzaje opcji:
+    - w = warning
+    - u = unknown
+    - c = critical
+    - r = recovery
+    - f = flapping
+    - s = scheduled service down time
+  ```
+  define contact {
+    contact_name                    kamil
+    use                             generic-contact
+    alias                           Kamil W
+    email                           kwar.sdrzdalne@gmail.com
+  }
+
+  ## contact groups
+  define contactgroup {
+    contactgroup_name               linuxadmins
+    alias                           Linux Administrators
+    members                         nagiosadmin,kamil
+  }
+  ```
+  - `vnagios`, restart nagios.service
+7. time periods (w pliku objects/timeperiods.cfg)
+  - można swój dla jakiegoś czegoś do monitorowania:
+  ```
+  define timeperiod {
+    name            godziny-pracy
+    timeperiod_name godziny-pracy
+    alias           Godziny pracy 8-16
+    monday          8:00-16:00
+    tuesday         8:00-16:00
+    wednesday       8:00-16:00
+    friday          8:00-16:00
+  }
+  ```
+
+4. host i service define 
+  - w folderze objects tworze nowy plik cfg np host1.cfg
+  ```
+  define host {
+    use             linux-kamil
+    host_name       t440p
+    alias           Thinkpad T440p
+    adress          192.168.1.183
+    contacts        kamil
+    contact_groups  linuxadmins
+  }
+
+  define service {
+    use                     service-kamil
+    hostname                t440p
+    service_description     PING
+    check_command           check_ping!100.00,20%!500.00,60%
+    contacts                kamil
+    contact_groups          linuxadmins
+  }
+  
+  ```
+  - edycja nagios.cfg
+    -  dodaj plik cfg w pliku nagios.cfg
+
+5. host groups define
+  - tworze nowy plik w nagios/etc/hostgroups.cfg
+  ```
+  ddefine hostgroup {
+    hostgroup_name  allservers
+    alias           All Servers Monitored by Nagios
+    members         localhost
+  }
+
+  define hostgroup {
+    hostgroup_name  linux-servers
+    alias           All Linux Monitored by Nagios
+    members         localhost
+  }
+
+  define hostgroup {
+    hostgroup_name  windows-servers
+    alias           All Windows Monitored by Nagios
+    members         localhost
+  }
+  ```
+  - dodaj do nagios.cfg plik z tą konfoguracją
+
+  - SERVICE GROUP --> tworze plik w nagios/etc/servicegroups.cfg
+
+  ```
+  define servicegroup {
+    servicegroup_name           linux_memory
+    alias                       Linux Used Memory
+    members                     localhost, Swap Usage # z description servicu
+  }
+  ```
+  - dodaj do nagios.cfg ten plik
+
+
 6. commands --> poprzez dodanie pluginów
-7. time periods
+
 8. utwórz nowe foldery --> /usr/local/nagios i dodać to w nagios.cfg
 9. service groups
 10. instalacja i konfiguracja pnp4nagios
+  - jaka na stronie supportu nagiosa:
+    - https://support.nagios.com/kb/article/nagios-core-performance-graphs-using-pnp4nagios-801.html#RHEL
+    - dostępne pod ip/pnp4nagios --> strona pokazuje czy są spełnione zależności
+    - usuń plik `rm -rf /usr/local/pnp4nagios/share/install.php`
+    - sprawdź zależności wchodze do folderu ze żródłami pnp4nagios i później do folderu scripts `./veryfipnp_config_v2.pl -m bulk -c /usr/local/nagios/etc/nagios.cfg -p /usr/local/pnp4nagios/etc/`
+    - na stronie z instalacją na dole strony są informacja co trzeba jeszcze zrobić żeby wszystko działało
 11. instalacja i konfiguracja NagVis i NDOUtils żeby zrobić dashboard
