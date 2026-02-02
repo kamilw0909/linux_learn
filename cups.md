@@ -1,4 +1,4 @@
-#Instalowanie drukarki na serwerze z Debian 13:
+# Instalowanie drukarki na serwerze z Debian 13:
 ```
 apt update
 apt install cups cups-filters hplip hplip-data ghostscript -y
@@ -14,11 +14,12 @@ lpadmin -p "NAZWA_DRUKARKI" \
     -m "hp:/path/to/model.ppd" \
     -E -L "Lokalizacja" -D "Opis drukarki"
 ```
-Zadanie             |Komenda
-Status drukarek     |lpstat -p -d
-Czyszczenie kolejki |cancel -a -x
-Usuwanie drukarki   |lpadmin -x NAZWA_DRUKARKI
-Logi błędów	tail -f |/var/log/cups/error_log
+|Zadanie             |Komenda                                |
+|----------             |----------                          |
+|Status drukarek        |lpstat -p -d                        |
+|Czyszczenie kolejki    |cancel -a -x                        |
+|Usuwanie drukarki      |lpadmin -x NAZWA_DRUKARKI           |
+|Logi błędów	        |tail -f |/var/log/cups/error_log    |
 
 # przywrócenie możliwości drukowania w kolorze dla drukarki:
 `lpadmin -p nazwa_drukarki_cups -o ColorModel=RGB`
