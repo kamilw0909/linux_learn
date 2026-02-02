@@ -1,8 +1,0 @@
----
-- hosts: win
-  tasks:
-    - name: kopiowanie pliku
-
-      win_copy:
-        src: test.txt
-        dest: C:\temp
